@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/css/bs4.min.css">
+  <link rel="stylesheet" href="assets/css/fa.min.css">
+  <title>VueJS Php MySQL CRUD App</title>
+  <style>
+    #overlay {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.6);
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="container-fluid">
+      <div class="row bg-dark">
+        <div class="col-lg-12">
+          <p class="text-center text-light display-4 pt-2"
+          style="font-size: 28px;">VueJS Php MySQL CRUD app</p>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row mt-3">
+        <div class="col-lg-6">
+          <h3 class="text-info">Registered Users</h3>
+        </div>
+        <div class="col-lg-6">
+          <button class="btn btn-info float-right"
+          @click="showAddModal=true">
+            <i class="fa fa-users"></i>&nbsp;&nbsp;
+            Add New User
+          </button>
+        </div>
+      </div>
+      <hr class="bg-info">
+      <div class="alert alert-danger" v-if='errorMsg'>
+        Error Message
+      </div>
+      <div class="alert alert-success" v-if='successMsg'>
+        Success Message
+      </div>
+      <div class="alert alert-warning" v-if='warningMsg'>
+        Warning Message
+      </div>
+      <div class="alert alert-info" v-if='infoMsg'>
+        Info Message
+      </div>
+      <!-- Display Users -->
+      <div class="row">
+        <div class="col-lg-12">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr class="text-center bg-info text-light">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center">
+                <td>1</td>
+                <td>John Doe</td>
+                <td>johndoe@email.com</td>
+                <td>08012345678</td>
+                <td><a href="" class="text-info" @click.prevent="showEditModal=true"><i class="fa fa-edit"></i></a></td>
+                <td><a href="" class="text-danger" @click.prevent="showDeleteModal=true"><i class="fa fa-trash"></i></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- Add new user Modal -->
+    <div id="overlay" v-if='showAddModal'>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-success"><i class="fa fa-plus-circle"></i> Add New User</h5>
+            <button type="button" class="close"
+            @click="showAddModal=false">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="#" method="post">
+              <div class="form-group">
+                <input type="text" class="form-control form-control-lg"
+                placeholder="Name">
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control form-control-lg"
+                placeholder="Email">
+              </div>
+              <div class="form-group">
+                <input type="tel" class="form-control form-control-lg"
+                placeholder="Phone">
+              </div>
+              <div class="form-group">
+                <button class="btn btn-info btn-block btn-lg">Add User</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit user Modal -->
+    <div id="overlay" v-if='showEditModal'>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-info"><i class="fa fa-edit"></i> Edit User</h5>
+            <button type="button" class="close"
+            @click="showEditModal=false">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="#" method="post">
+              <div class="form-group">
+                <input type="text" class="form-control form-control-lg"
+                placeholder="Name">
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control form-control-lg"
+                placeholder="Email">
+              </div>
+              <div class="form-group">
+                <input type="tel" class="form-control form-control-lg"
+                placeholder="Phone">
+              </div>
+              <div class="form-group">
+                <button class="btn btn-info btn-block btn-lg">Update User</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete user Modal -->
+    <div id="overlay" v-if='showDeleteModal'>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger"><i class="fa fa-trash"></i> Delete User</h5>
+            <button type="button" class="close"
+            @click="showDeleteModal=false">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="#" method="post">
+              <div class="form-group">
+                <input type="text" class="form-control form-control-lg"
+                placeholder="Name">
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control form-control-lg"
+                placeholder="Email">
+              </div>
+              <div class="form-group">
+                <input type="tel" class="form-control form-control-lg"
+                placeholder="Phone">
+              </div>
+              <div class="form-group">
+                <button class="btn btn-info btn-block btn-lg">Delete User</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="assets/vue.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
